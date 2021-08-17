@@ -13,3 +13,6 @@
 [submodule "submodules/--recursive"]
 	path = submodules/--recursive
 	url = https://github.com/IObundle/iob-timer.git
+[submodule "submodules/TIMER"]
+	path = submodules/TIMER
+	url = https://github.com/IObundle/iob-timer.git
