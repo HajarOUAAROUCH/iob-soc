@@ -1,26 +1,33 @@
 #include "system.h"
+#include "printf.h"
 #include "periphs.h"
 #include "iob-uart.h"
-#include "iob-timer.h"
+#include "iob_timer.h"
 
 int main()
 {
   unsigned long long elapsed;
   unsigned int elapsedu;
 
-  //Read current Timer count, compute elapsed
-  elapsed = timer_get_count(TIMER_BASE);
-  elapsedu = timer_time_us(TIMER_BASE);
+  
 
   //init UART
   uart_init(UART_BASE,FREQ/BAUD);
+  timer_init(TIMER_BASE);
+
   
-  uart_printf("\n\n\nHello world!\n\n\n");
+  uart_puts("\n\n\nHello Hajar!\n\n\n");
 
   uart_txwait ();
   
-  uart_printf("\nExecution time: %d clocks in %dus @%dMHz (%d MBaud)\n\n",(unsigned int)elapsed, elapsedu, FREQ/1000000, BAUD/1000000);
+  //Read current Timer count, compute elapsed
+  elapsed = timer_get_count(TIMER_BASE);
+  elapsedu = timer_time_us(TIMER_BASE);
+  
+  printf("\nExecution time: %d clocks in %dus @%dMHz (%d MBaud)\n\n",(unsigned int)elapsed, elapsedu, FREQ/1000000, BAUD/1000000);
 
-  uart_txwait ();
+  timer_stop();
+
+  uart_finish ();
   return 0;
 }
